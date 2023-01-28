@@ -80,11 +80,7 @@ const DrumFortune: FC<IProps> = ({
         <Loader />
       )}
 
-      {selectVariant && !isSpin ? (
-        <SelectQuote selectVariant={selectVariant} />
-      ) : (
-        ""
-      )}
+      {selectVariant && <SelectQuote selectVariant={selectVariant} />}
 
       <Button onClick={spinHandler} disabled={isDisabled}>
         Мне повезёт!
