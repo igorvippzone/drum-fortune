@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&display=swap");
+@import "variable.scss";
+
+.drumFortune {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  color: $text;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+
+  @media (max-width: 565px) {
+    align-items: center;
+  }
+
+  .title {
+    margin: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 28px;
+    text-align: center;
+  }
+}

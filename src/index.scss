@@ -1,0 +1,30 @@
+// @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  // font-family: "Lato", sans-serif;
+  font-weight: 400;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+#root {
+  height: 100vh;
+
+}
+
+.App {
+  height: 100%;
+padding: 0 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,41 @@
+@import "../../variable.scss";
+.drumSpin {
+  height: 90px;
+  overflow-y: hidden;
+  position: relative;
+
+  .select {
+    position: absolute;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 3px $shadow-blue, 0 0 50px 30px rgb(255, 255, 255);
+    margin: 0 5px;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 30px;
+    transform: translateY(-50%);
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+
+    transition: transform .4s;
+
+    .listItem {
+      display: flex;
+      align-items: center;
+
+      p {
+        margin: 0;
+        font-weight: 600;
+        margin-left: 10px;
+        font-size: 22px;
+
+        @media (max-width: 565px) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
