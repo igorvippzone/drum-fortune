@@ -67,7 +67,6 @@ const DrumFortune: FC<TProps> = ({
           position={position}
           setPosition={setPosition}
           speedAnimation={speedAnimation}
-          // heightList={setHeightList}
         />
       ) : (
         <Loader />
