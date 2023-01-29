@@ -26,24 +26,21 @@ const DrumFortune: FC<IProps> = ({
   const [position, setPosition] = useState<null | number>(null);
   const [selectVariant, setSelectVariant] = useState<null | IVariant>(null);
   const [isSpin, setIsSpin] = useState<boolean>(false);
-
   const [heightList, setHeightList] = useState<number>(0);
 
+
   useEffect(() => {
-    if (variants.length) {
-      setIsDisabled(false);
-    }
+    if (variants.length) setIsDisabled(false);
   }, [variants]);
 
   useEffect(() => {
-    if (!isDisabled && selectVariant) {
-      getResult(selectVariant);
-    }
-  }, [selectVariant, isDisabled]);
+    if (selectVariant) getResult(selectVariant);
+  }, [selectVariant]);
 
   useEffect(() => {
     if (!isDisabled && typeof position === "number" && variants) {
-      setSelectVariant(() => variants[Math.floor(Math.abs(position / 30))]);
+      const index = Math.floor(Math.abs(position / 30))
+      setSelectVariant(variants[index]);
     }
   }, [isDisabled, variants, position]);
 
@@ -52,7 +49,8 @@ const DrumFortune: FC<IProps> = ({
     setIsSpin(true);
     setSelectVariant(null);
 
-    setPosition(() => -Math.floor(Math.random() * heightList)); //рандомное число в диапазоне от 0 до высоты списка
+    const randomNumber = Math.floor(Math.random() * heightList);
+    setPosition(-randomNumber);
 
     setTimeout(() => {
       setIsDisabled(false);
@@ -72,9 +70,9 @@ const DrumFortune: FC<IProps> = ({
           variants={variants}
           isSpin={isSpin}
           position={position}
+          setPosition={setPosition}
           speedAnimation={speedAnimation}
           heightList={setHeightList}
-          setPosition={setPosition}
         />
       ) : (
         <Loader />

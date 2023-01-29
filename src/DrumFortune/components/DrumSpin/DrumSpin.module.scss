@@ -1,4 +1,5 @@
 @import "../../variable.scss";
+
 .drumSpin {
   height: 90px;
   overflow-y: hidden;
@@ -15,12 +16,38 @@
     height: 30px;
     transform: translateY(-50%);
   }
+  .shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+      height: 20px;
+      width: 100%;
+      top: 0;
+      background: linear-gradient(#fff, rgba(0, 0, 0, 0));
+    }
+    &::before {
+      position: absolute;
+      content: "";
+      display: block;
+      height: 20px;
+      width: 100%;
+      bottom: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0), #fff);
+    }
+  }
 
   .list {
     margin: 0;
     padding: 0;
 
-    transition: transform .4s;
+    transition: transform 0.4s;
 
     .listItem {
       display: flex;

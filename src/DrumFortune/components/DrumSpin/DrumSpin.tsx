@@ -24,20 +24,20 @@ const DrumSpin: FC<IProps> = ({
   const ref = useRef<HTMLUListElement | null>(null);
   const getHeightList = ref.current?.clientHeight;
 
+  const heightElement = 30;
+
   useEffect(() => {
-    if (getHeightList) {
-      heightList(getHeightList);
-    }
+    if (getHeightList) heightList(getHeightList);
   }, [getHeightList]);
 
   useEffect(() => {
     let interval: NodeJS.Timer;
-    const step = 30;
+
     if (isSpin && getHeightList) {
       interval = setInterval(() => {
         setPosition((prevPosition) => {
           if (typeof prevPosition === "number") {
-            let value = prevPosition - step;
+            let value = prevPosition - heightElement;
             if (Math.abs(value) >= getHeightList) {
               value = 0;
             }
@@ -54,23 +54,29 @@ const DrumSpin: FC<IProps> = ({
   }, [isSpin, getHeightList]);
 
   return (
-    <div className={s.drumSpin}>
+    <div className={s.drumSpin} style={{ height: heightElement * 3 }}>
       <ul
         ref={ref}
         className={s.list}
-        style={{ transform: `translateY(${Number(position) + 30}px)` }}
+        style={{
+          transform: `translateY(${Number(position) + heightElement}px)`,
+        }}
       >
         {variants.length &&
-          variants.map((item) => {
-            const { title, id } = item;
+          variants.map(({ title, id }) => {
             return (
-              <li className={s.listItem} key={id} style={{ height: "30px" }}>
+              <li
+                className={s.listItem}
+                key={id}
+                style={{ height: heightElement }}
+              >
                 <p>{title.length > 29 ? title.slice(0, 29) + "..." : title}</p>
               </li>
             );
           })}
       </ul>
-      <div className={s.select}></div>
+      <div className={s.shadow} />
+      <div className={s.select} style={{height: heightElement}} />
     </div>
   );
 };

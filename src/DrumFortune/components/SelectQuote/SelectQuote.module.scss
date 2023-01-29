@@ -3,18 +3,17 @@
 .selectQuote {
   font-size: 16px;
   font-weight: 600;
-
+  
+  &.quote {
+    font-style: italic;
+  }
+  &.bonus {
+    color: $text-danger;
+    font-weight: 700;
+    align-self: center;
+  }
 
   @media (max-width: 565px) {
     text-align: center;
   }
-}
-.quote{
-  font-style: italic;
-}
-
-.bonus {
-  color: $text-danger;
-  font-weight: 700;
-  align-self: center;
 }
