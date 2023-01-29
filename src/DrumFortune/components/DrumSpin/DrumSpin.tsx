@@ -4,7 +4,7 @@ import IVariant from "../../interface";
 
 import s from "./DrumSpin.module.scss";
 
-interface IProps {
+type TProps  = {
   variants: IVariant[];
   position: number | null;
   isSpin: boolean;
@@ -13,7 +13,7 @@ interface IProps {
   setPosition: Dispatch<SetStateAction<number | null>>;
 }
 
-const DrumSpin: FC<IProps> = ({
+const DrumSpin: FC<TProps> = ({
   setPosition,
   speedAnimation,
   heightList,

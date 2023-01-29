@@ -5,15 +5,15 @@ import IVariant from "./interface";
 
 import s from "./DrumFortune.module.scss";
 
-interface IProps {
+type TProps = {
   data: IVariant[];
   timeSpin?: number;
   speedAnimation?: number;
   getResult: (res: IVariant) => void;
   error: string;
-}
+};
 
-const DrumFortune: FC<IProps> = ({
+const DrumFortune: FC<TProps> = ({
   data,
   timeSpin = 4000,
   speedAnimation = 30,
@@ -28,7 +28,6 @@ const DrumFortune: FC<IProps> = ({
   const [isSpin, setIsSpin] = useState<boolean>(false);
   const [heightList, setHeightList] = useState<number>(0);
 
-
   useEffect(() => {
     if (variants.length) setIsDisabled(false);
   }, [variants]);
@@ -39,7 +38,7 @@ const DrumFortune: FC<IProps> = ({
 
   useEffect(() => {
     if (!isDisabled && typeof position === "number" && variants) {
-      const index = Math.floor(Math.abs(position / 30))
+      const index = Math.floor(Math.abs(position / 30));
       setSelectVariant(variants[index]);
     }
   }, [isDisabled, variants, position]);

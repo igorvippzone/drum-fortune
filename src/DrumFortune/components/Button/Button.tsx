@@ -2,18 +2,18 @@ import { FC, ReactNode } from "react";
 
 import s from "./Button.module.scss";
 
-interface IProps {
+type TProps = {
   onClick: () => void;
   disabled?: boolean;
   children: ReactNode;
-}
+};
 
-const Button: FC<IProps> = ({ onClick, disabled = false, children }) => {
+const Button: FC<TProps> = ({ onClick, disabled = false, children }) => {
   const clickHandler = () => {
     if (disabled) return;
     onClick();
   };
-  
+
   return (
     <button
       onClick={clickHandler}
