@@ -24,32 +24,28 @@ const DrumFortune: FC<TProps> = ({
 
   const [isDisabled, setIsDisabled] = useState<boolean>(!variants.length);
   const [position, setPosition] = useState<null | number>(null);
-  const [selectVariant, setSelectVariant] = useState<null | IVariant>(null);
+  const [selectedVariant, setSelectedVariant] = useState<null | IVariant>(null);
   const [isSpin, setIsSpin] = useState<boolean>(false);
-  const [heightList, setHeightList] = useState<number>(0);
 
   useEffect(() => {
     if (variants.length) setIsDisabled(false);
   }, [variants]);
 
   useEffect(() => {
-    if (selectVariant) getResult(selectVariant);
-  }, [selectVariant]);
+    if (selectedVariant) getResult(selectedVariant);
+  }, [selectedVariant]);
 
   useEffect(() => {
     if (!isDisabled && typeof position === "number" && variants) {
       const index = Math.floor(Math.abs(position / 30));
-      setSelectVariant(variants[index]);
+      setSelectedVariant(variants[index]);
     }
   }, [isDisabled, variants, position]);
 
   const spinHandler = () => {
     setIsDisabled(true);
     setIsSpin(true);
-    setSelectVariant(null);
-
-    const randomNumber = Math.floor(Math.random() * heightList);
-    setPosition(-randomNumber);
+    setSelectedVariant(null);
 
     setTimeout(() => {
       setIsDisabled(false);
@@ -71,13 +67,13 @@ const DrumFortune: FC<TProps> = ({
           position={position}
           setPosition={setPosition}
           speedAnimation={speedAnimation}
-          heightList={setHeightList}
+          // heightList={setHeightList}
         />
       ) : (
         <Loader />
       )}
 
-      {selectVariant && <SelectQuote selectVariant={selectVariant} />}
+      {selectedVariant && <SelectQuote selectedVariant={selectedVariant} />}
 
       <Button onClick={spinHandler} disabled={isDisabled}>
         Мне повезёт!

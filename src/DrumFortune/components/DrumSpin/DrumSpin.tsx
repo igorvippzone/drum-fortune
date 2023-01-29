@@ -4,43 +4,40 @@ import IVariant from "../../interface";
 
 import s from "./DrumSpin.module.scss";
 
-type TProps  = {
+type TProps = {
   variants: IVariant[];
   position: number | null;
   isSpin: boolean;
-  heightList: (height: number) => void;
   speedAnimation: number;
   setPosition: Dispatch<SetStateAction<number | null>>;
-}
+};
 
 const DrumSpin: FC<TProps> = ({
   setPosition,
   speedAnimation,
-  heightList,
   variants,
   isSpin,
   position,
 }) => {
   const ref = useRef<HTMLUListElement | null>(null);
-  const getHeightList = ref.current?.clientHeight;
+  const listElementHeight = ref.current?.clientHeight;
 
   const heightElement = 30;
 
-  useEffect(() => {
-    if (getHeightList) heightList(getHeightList);
-  }, [getHeightList]);
 
   useEffect(() => {
     let interval: NodeJS.Timer;
 
-    if (isSpin && getHeightList) {
+    if (isSpin && listElementHeight) {
+      const randomNumber = Math.floor(Math.random() * listElementHeight);
+      setPosition(-randomNumber);
+
       interval = setInterval(() => {
         setPosition((prevPosition) => {
+          
           if (typeof prevPosition === "number") {
             let value = prevPosition - heightElement;
-            if (Math.abs(value) >= getHeightList) {
-              value = 0;
-            }
+            if (Math.abs(value) >= listElementHeight) value = 0;
             return value;
           } else {
             return 0;
@@ -51,7 +48,7 @@ const DrumSpin: FC<TProps> = ({
     return () => {
       clearInterval(interval);
     };
-  }, [isSpin, getHeightList]);
+  }, [isSpin, listElementHeight]);
 
   return (
     <div className={s.drumSpin} style={{ height: heightElement * 3 }}>
@@ -76,7 +73,7 @@ const DrumSpin: FC<TProps> = ({
           })}
       </ul>
       <div className={s.shadow} />
-      <div className={s.select} style={{height: heightElement}} />
+      <div className={s.select} style={{ height: heightElement }} />
     </div>
   );
 };

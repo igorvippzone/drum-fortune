@@ -5,11 +5,11 @@ import IVariant from "../../interface";
 import s from "./SelectQuote.module.scss";
 
 type TProps = {
-  selectVariant: IVariant;
+  selectedVariant: IVariant;
 }
 
-const SelectQuote: FC<TProps> = ({ selectVariant }) => {
-  const { title, isBonus } = selectVariant;
+const SelectQuote: FC<TProps> = ({ selectedVariant }) => {
+  const { title, isBonus } = selectedVariant;
   const isQuote = title.includes("(c)");
 
   return (
