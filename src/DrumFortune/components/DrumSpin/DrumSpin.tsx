@@ -10,6 +10,7 @@ type TProps = {
   isSpin: boolean;
   speedAnimation: number;
   setPosition: Dispatch<SetStateAction<number | null>>;
+  heightElement: number;
 };
 
 const DrumSpin: FC<TProps> = ({
@@ -18,37 +19,35 @@ const DrumSpin: FC<TProps> = ({
   variants,
   isSpin,
   position,
+  heightElement,
 }) => {
   const ref = useRef<HTMLUListElement | null>(null);
   const listElementHeight = ref.current?.clientHeight;
-
-  const heightElement = 30;
-
+  const stringLength = 29;
 
   useEffect(() => {
     let interval: NodeJS.Timer;
 
     if (isSpin && listElementHeight) {
-      const randomNumber = Math.floor(Math.random() * listElementHeight);
+      const randomNumber =
+        Math.floor(Math.random() * variants.length) * heightElement;
+
       setPosition(-randomNumber);
 
       interval = setInterval(() => {
         setPosition((prevPosition) => {
-          
-          if (typeof prevPosition === "number") {
-            let value = prevPosition - heightElement;
-            if (Math.abs(value) >= listElementHeight) value = 0;
-            return value;
-          } else {
-            return 0;
-          }
+          if (typeof prevPosition !== "number") return 0;
+
+          let value = prevPosition - heightElement;
+
+          return Math.abs(value) >= listElementHeight ? (value = 0) : value;
         });
       }, speedAnimation);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [isSpin, listElementHeight]);
+  }, [isSpin, listElementHeight, speedAnimation]);
 
   return (
     <div className={s.drumSpin} style={{ height: heightElement * 3 }}>
@@ -67,7 +66,11 @@ const DrumSpin: FC<TProps> = ({
                 key={id}
                 style={{ height: heightElement }}
               >
-                <p>{title.length > 29 ? title.slice(0, 29) + "..." : title}</p>
+                <p>
+                  {title.length > stringLength
+                    ? title.slice(0, stringLength).trim() + "..."
+                    : title}
+                </p>
               </li>
             );
           })}

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useMemo } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 
 import { Button, DrumSpin, Loader, SelectQuote } from "./components";
 import IVariant from "./interface";
@@ -20,12 +20,15 @@ const DrumFortune: FC<TProps> = ({
   getResult,
   error,
 }) => {
-  const variants = useMemo<IVariant[]>(() => data, [data]);
+  // const variants = useMemo<IVariant[]>(() => data, [data]);
+  const variants = data;
 
   const [isDisabled, setIsDisabled] = useState<boolean>(!variants.length);
   const [position, setPosition] = useState<null | number>(null);
   const [selectedVariant, setSelectedVariant] = useState<null | IVariant>(null);
   const [isSpin, setIsSpin] = useState<boolean>(false);
+
+  const heightElement = 30;
 
   useEffect(() => {
     if (variants.length) setIsDisabled(false);
@@ -37,7 +40,8 @@ const DrumFortune: FC<TProps> = ({
 
   useEffect(() => {
     if (!isDisabled && typeof position === "number" && variants) {
-      const index = Math.floor(Math.abs(position / 30));
+      const index = Math.floor(Math.abs(position / heightElement));
+
       setSelectedVariant(variants[index]);
     }
   }, [isDisabled, variants, position]);
@@ -67,6 +71,7 @@ const DrumFortune: FC<TProps> = ({
           position={position}
           setPosition={setPosition}
           speedAnimation={speedAnimation}
+          heightElement={heightElement}
         />
       ) : (
         <Loader />
